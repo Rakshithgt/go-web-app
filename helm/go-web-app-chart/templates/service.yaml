@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "go-web-app.fullname" . }}
+  labels:
+    app: {{ include "go-web-app.name" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "go-web-app.name" . }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+

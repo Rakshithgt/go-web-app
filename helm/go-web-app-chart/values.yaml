@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: rakshithgt96/go-web-app
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  host: go-web-app.local
+  path: /
+  pathType: Prefix
+
+resources: {}
+
