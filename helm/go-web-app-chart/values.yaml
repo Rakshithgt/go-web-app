@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: rakshithgt96/go-web-app
-  tag: "17514815205"
+  tag: "17515186371"
 service:
   type: ClusterIP
   port: 80
