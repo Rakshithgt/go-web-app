@@ -1,24 +1,19 @@
-{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "go-web-app.fullname" . }}
+  name: {{ .Chart.Name }}-ingress
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: nginx
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: go-web-app.local
       http:
         paths:
-          - path: {{ .Values.ingress.path }}
-            pathType: {{ .Values.ingress.pathType }}
+          - path: /
+            pathType: Prefix
             backend:
               service:
-                name: {{ include "go-web-app.fullname" . }}
+                name: {{ .Release.Name }}-service
                 port:
                   number: {{ .Values.service.port }}
-{{- end }}
-
